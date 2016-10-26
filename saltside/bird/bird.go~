@@ -1,0 +1,39 @@
+package bird
+
+import (
+	"encoding/json"
+	"errors"
+)
+type Bird struct{
+	ID       * string
+	Name     * string
+	Family   * string
+	Added    * string
+	Visible  * bool
+	Continents []string
+}
+func (bird * Bird)IsValida()bool{
+	if bird.ID == nil || bird.Name == nil ||bird.Family == nil ||  bird.Continents == nil{
+		return false
+	}
+	return true
+}
+/*this method will set def value for bird*/
+func (bird * Bird) SetDefault(){
+	if bird.Visible == nil {
+		bird.Visible = new(bool)
+		*bird.Visible = true
+	}
+
+	if bird.Added == nil {
+		bird.Added = new(string)
+		bird.Added = time.Now().Format(time.UnixDate)
+	}
+}
+
+func Parse(data []byte) (bird * Bird, err error) {
+	if err = json.Unmarshal(data, &bird); err != nil {
+		return nil, err
+	}
+	return req.WithDefaults(), nil
+}

@@ -1,0 +1,35 @@
+Overview:- I have used go language to solve the problem and for nosql have used memcache . 
+So to run my code below installation will be required
+  1. Install memcached on one machine . It can be downloaded and from https://memcached.org/downloads
+  2. Need to install golang. It can be downloaded and installed from https://golang.org/doc/install location
+  3. Need to install memcache client in golang by below command
+     go get github.com/bradfitz/gomemcache
+  
+How to build:
+  cd saltside
+  go build
+  #above command will build saltside binary and it cna be run as ./saltside
+  saltside program will run on 8010 port
+How to call 
+  It can be called from browser as below
+  saltside:8010?ops=<1-4>[&id=<id>]
+  here in param ops 
+  1-add
+  2-delete second param id will be required
+  3-getbirddetailsbyID so second param need to pass
+  4-list of bird id(memcache doesn't share list of all items  so I was unbale to implement it fully)
+  
+Code overview
+  salside.go
+     This file is main package and contains method which check what type of action need to taken and return final response
+  bird/bird.go
+      This is bird package and it have data structre for bird and have method to validate request and fill up default parameter
+  nosql/nosql.go
+      This is nosql package it have method to get/delete/list data based on key from nosql server. In my current case I have used memcache. It can be replaced with other nosql also like Aerospike/mongo/redis
+	  
+Unit test covered
+   verification if mandatory param is not present in the request while adding new bird
+   Current data in UTC is getting added for new bird
+   by default visible is set to false
+   Proper header value setting in response.
+   
